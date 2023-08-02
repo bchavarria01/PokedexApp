@@ -11,40 +11,16 @@ final class HomeViewController: BaseViewController {
     
     // MARK: - Components
     
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.showsVerticalScrollIndicator = false
-        return scrollView
-    }()
-    
     lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var logoImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "ic_pokemon_logo")
-        return imageView
-    }()
-    
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red: 0, green: 0.373, blue: 1, alpha: 1)
-        label.font = UIFont(name: "Montserrat-Bold", size: 24)
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.3
-        label.attributedText = NSMutableAttributedString(
-            string: "Pokédex",
-            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        )
-
-        return label
+    lazy var navigationView: NavigationHomeBar = {
+        let view = NavigationHomeBar()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     lazy var welcomeLabel: UILabel = {
@@ -100,28 +76,51 @@ final class HomeViewController: BaseViewController {
         return imageView
     }()
     
+    lazy var pokemonsCollectionView: UICollectionView = {
+        let collectionLayout = UICollectionViewFlowLayout()
+        collectionLayout.scrollDirection = .vertical
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: collectionLayout
+        )
+        collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     // MARK: - Attributes
     
-    var handle: NSObjectProtocol?
+    // MARK: - DataSource
+    
+    private lazy var collectionDataSource: PokemonDetailViewControllerCollectionDataSource = {
+        return PokemonDetailViewControllerCollectionDataSource()
+    }()
+    
+    // MARK: - Delegate
+    
+    private lazy var collectionDelegate: PokemonDetailViewControllerCollectionDelegate = {
+        return PokemonDetailViewControllerCollectionDelegate()
+    }()
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupLayout()
         setupActions()
-//        hideKeyboardGesture()
-//        setupKeyboardHandling()
+        setupCollectionView()
+        hideKeyboardGesture()
+        setupKeyboardHandling()
     }
     
     // MARK: - Helpers
     
     private func setupKeyboardHandling() {
-//        subscribeForKeyboardChange(
-//            self,
-//            selector: #selector(keyboardWillChange(_:))
-//        )
+        subscribeForKeyboardChange(
+            self,
+            selector: #selector(keyboardWillChange(_:))
+        )
     }
     
     @objc private func keyboardWillChange(_ notification: Notification) {
@@ -129,9 +128,9 @@ final class HomeViewController: BaseViewController {
             else { return }
         
         if notification.name == UIResponder.keyboardWillHideNotification {
-            scrollView.contentInset = .zero
+            pokemonsCollectionView.contentInset = .zero
         } else if notification.name == UIResponder.keyboardWillShowNotification {
-            scrollView.contentInset.bottom = frame.height
+            pokemonsCollectionView.contentInset.bottom = frame.height
         }
     }
     
@@ -139,57 +138,52 @@ final class HomeViewController: BaseViewController {
         
     }
     
+    private func setupCollectionView() {
+        let items = [PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: "")]
+        collectionDelegate.items = items
+        collectionDataSource.items = items
+        pokemonsCollectionView.register(cellType: PokemonsCollectionViewCell.self)
+        pokemonsCollectionView.dataSource = collectionDataSource
+        pokemonsCollectionView.delegate = collectionDelegate
+        pokemonsCollectionView.reloadData()
+    }
+    
     private func setupLayout() {
-        
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        self.navigationItem.titleView = navigationView
+        view.addSubview(contentView)
         circleView.addSubview(searchIcon)
-        
-        contentView.addSubview(logoImage)
-        contentView.addSubview(titleLabel)
+    
         contentView.addSubview(welcomeLabel)
         contentView.addSubview(searchField)
         contentView.addSubview(circleView)
+        contentView.addSubview(pokemonsCollectionView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1),
-            
-            logoImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            logoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            
-            logoImage.widthAnchor.constraint(equalToConstant: 46),
-            logoImage.heightAnchor.constraint(equalToConstant: 46),
-            
-            titleLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
-            
-            welcomeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            welcomeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
             welcomeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             
             searchField.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 12),
             searchField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             searchField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            searchField.heightAnchor.constraint(equalToConstant: 36),
-            searchField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -32),
             
             searchIcon.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
             searchIcon.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
             
             circleView.centerYAnchor.constraint(equalTo: searchField.centerYAnchor),
-            circleView.topAnchor.constraint(equalTo: searchField.topAnchor, constant: 5),
             circleView.trailingAnchor.constraint(equalTo: searchField.trailingAnchor, constant: -5),
             circleView.bottomAnchor.constraint(equalTo: searchField.bottomAnchor, constant: -5),
             circleView.widthAnchor.constraint(equalToConstant: 30),
             circleView.heightAnchor.constraint(equalToConstant: 30),
+            
+            pokemonsCollectionView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 20),
+            pokemonsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            pokemonsCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -90),
+            pokemonsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             
         ])
         
