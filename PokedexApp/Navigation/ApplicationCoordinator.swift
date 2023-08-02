@@ -27,7 +27,7 @@ final class ApplicationCoordinator: Coordinator {
     // MARK: Start
     
     func start() {
-        let welcomeCoordinator = WelcomeCoordinator(
+        let welcomeCoordinator = HomeCoordinator(
             presenter: presenter,
             parentCoordinator: self
         )

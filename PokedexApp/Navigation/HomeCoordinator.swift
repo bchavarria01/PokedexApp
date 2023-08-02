@@ -8,7 +8,7 @@
 import UIKit
 import Presentr
 
-final class WelcomeCoordinator: Coordinator {
+final class HomeCoordinator: Coordinator {
     var presenter: UINavigationController
     
     var parentCoordinator: Coordinator?
@@ -16,7 +16,7 @@ final class WelcomeCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     func start() {
-        let controller = DetailViewController()
+        let controller = HomeViewController()
 //        controller.delegate = self
         presenter.pushViewController(controller, animated: true)
     }
