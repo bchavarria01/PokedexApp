@@ -16,7 +16,7 @@ final class WelcomeCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     func start() {
-        let controller = HomeViewController()
+        let controller = DetailViewController()
 //        controller.delegate = self
         presenter.pushViewController(controller, animated: true)
     }
