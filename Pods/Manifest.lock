@@ -1,0 +1,47 @@
+PODS:
+  - Alamofire (5.7.1)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
+  - Nuke (10.7.1)
+  - Presentr (1.9)
+  - Reusable (4.1.2):
+    - Reusable/Storyboard (= 4.1.2)
+    - Reusable/View (= 4.1.2)
+  - Reusable/Storyboard (4.1.2)
+  - Reusable/View (4.1.2)
+  - RxSwift (6.5.0)
+  - SwiftGen (6.6.2)
+
+DEPENDENCIES:
+  - Moya/RxSwift
+  - Nuke
+  - Presentr
+  - Reusable
+  - RxSwift
+  - SwiftGen
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Moya
+    - Nuke
+    - Presentr
+    - Reusable
+    - RxSwift
+    - SwiftGen
+
+SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
+  Reusable: 6bae6a5e8aa793c9c441db0213c863a64bce9136
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
+
+PODFILE CHECKSUM: 72f7477301947376d8bf6ea0c03d84dd19b6c178
+
+COCOAPODS: 1.12.1
