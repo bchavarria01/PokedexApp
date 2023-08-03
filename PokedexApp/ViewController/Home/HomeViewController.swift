@@ -112,26 +112,10 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        setupActions()
         setupCollectionView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        self.additionalSafeAreaInsets.top = 20
-        
-        let height: CGFloat = 150 //whatever height you want to add to the existing height
-        let bounds = self.navigationController!.navigationBar.bounds
-        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
-        
-    }
-    
     // MARK: - Helpers
-    
-    private func setupActions() {
-        
-    }
     
     private func setupCollectionView() {
         let items = [PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: "")]
@@ -147,9 +131,6 @@ final class HomeViewController: BaseViewController {
     
     private func setupLayout() {
         let logoView = navigationView.logoImage
-        logoView.translatesAutoresizingMaskIntoConstraints = false
-        logoView.heightAnchor.constraint(equalToConstant: 46).isActive = true
-        logoView.widthAnchor.constraint(equalToConstant: 46).isActive = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoView)
         view.addSubview(contentView)
         circleView.addSubview(searchIcon)

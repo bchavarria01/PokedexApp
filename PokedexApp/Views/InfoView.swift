@@ -11,27 +11,76 @@ class InfoView: UIView {
     
     // MARK: - Properties
     
-    lazy var logoImage: UIImageView = {
+    lazy var mainContentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.cornerRadius(
+            with: [
+                .layerMaxXMaxYCorner,
+                .layerMaxXMinYCorner,
+                .layerMinXMaxYCorner,
+                .layerMinXMinYCorner
+            ], cornerRadii: 10
+        )
+        return view
+    }()
+    
+    lazy var weightImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "ic_pokemon_logo")
+        imageView.image = UIImage(named: "ic_weight")
         return imageView
     }()
     
-    lazy var titleLabel: UILabel = {
+    lazy var weightLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red: 0, green: 0.373, blue: 1, alpha: 1)
-        label.font = UIFont(name: "Montserrat-Bold", size: 24)
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.3
-        label.attributedText = NSMutableAttributedString(
-            string: "Pokédex",
-            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        )
-
+        label.text = "90,5 kg"
+        label.textColor = UIColor(red: 0.004, green: 0.259, blue: 0.416, alpha: 1)
+        label.font = UIFont(name: "Montserrat-Bold", size: 14)
         return label
+    }()
+    
+    lazy var weightLabelTitle: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Peso"
+        label.textColor = UIColor(red: 0.172, green: 0.521, blue: 0.736, alpha: 1)
+        label.font = UIFont(name: "Montserrat-Regular", size: 10)
+        return label
+    }()
+    
+    lazy var rulerImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "ic_ruler")
+        return imageView
+    }()
+    
+    lazy var heightLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "1.7 m"
+        label.textColor = UIColor(red: 0.004, green: 0.259, blue: 0.416, alpha: 1)
+        label.font = UIFont(name: "Montserrat-Bold", size: 14)
+        return label
+    }()
+    
+    lazy var heightLabelTitle: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Altura"
+        label.textColor = UIColor(red: 0.172, green: 0.521, blue: 0.736, alpha: 1)
+        label.font = UIFont(name: "Montserrat-Regular", size: 10)
+        return label
+    }()
+    
+    lazy var separator: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.839, alpha: 1)
+        return view
     }()
     
     // MARK: - LifeCycle
@@ -48,18 +97,57 @@ class InfoView: UIView {
     }
     
     private func setUpView() {
-        self.addSubview(logoImage)
-        self.addSubview(titleLabel)
+        
+        addSubview(mainContentView)
+        
+        mainContentView.addSubview(weightImageView)
+        mainContentView.addSubview(weightLabel)
+        mainContentView.addSubview(weightLabelTitle)
+        
+        mainContentView.addSubview(separator)
+        
+        mainContentView.addSubview(rulerImageView)
+        mainContentView.addSubview(heightLabel)
+        mainContentView.addSubview(heightLabelTitle)
         
         NSLayoutConstraint.activate([
-            logoImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            logoImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            mainContentView.topAnchor.constraint(equalTo: topAnchor),
+            mainContentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mainContentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            mainContentView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            logoImage.widthAnchor.constraint(equalToConstant: 46),
-            logoImage.heightAnchor.constraint(equalToConstant: 46),
+            weightImageView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 16),
+            weightImageView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 32),
+            weightImageView.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -16),
             
-            titleLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
+            weightImageView.widthAnchor.constraint(equalToConstant: 24),
+            weightImageView.heightAnchor.constraint(equalToConstant: 24),
+            
+            weightLabel.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 10),
+            weightLabel.leadingAnchor.constraint(equalTo: weightImageView.trailingAnchor, constant: 16),
+            
+            weightLabelTitle.topAnchor.constraint(equalTo: weightLabel.bottomAnchor),
+            weightLabelTitle.leadingAnchor.constraint(equalTo: weightImageView.trailingAnchor, constant: 16),
+            weightLabelTitle.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -10),
+            
+            separator.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 10),
+            separator.leadingAnchor.constraint(equalTo: mainContentView.centerXAnchor),
+            separator.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -10),
+            separator.widthAnchor.constraint(equalToConstant: 1),
+            
+            rulerImageView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 16),
+            rulerImageView.leadingAnchor.constraint(equalTo: separator.leadingAnchor, constant: 32),
+            rulerImageView.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -16),
+            
+            rulerImageView.widthAnchor.constraint(equalToConstant: 24),
+            rulerImageView.heightAnchor.constraint(equalToConstant: 24),
+            
+            heightLabel.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 10),
+            heightLabel.leadingAnchor.constraint(equalTo: rulerImageView.trailingAnchor, constant: 16),
+            
+            heightLabelTitle.topAnchor.constraint(equalTo: heightLabel.bottomAnchor),
+            heightLabelTitle.leadingAnchor.constraint(equalTo: rulerImageView.trailingAnchor, constant: 16),
+            heightLabelTitle.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -10),
         ])
     }
     

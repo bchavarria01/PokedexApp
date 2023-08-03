@@ -52,12 +52,25 @@ final class DetailViewController: BaseViewController {
         return view
     }()
     
-    lazy var infoStackView: UIStackView = {
-        let view = UIStackView()
-        view.spacing = 0
-        view.axis = .vertical
-        view.alignment = .leading
-        view.distribution = .fill
+    lazy var infoView: InfoView = {
+        let view = InfoView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "La figura de Charizard es la de un dragón erguido sobre sus dos patas traseras, que sostienen su peso. Posee unas poderosas alas y un abrasador aliento de fuego."
+        label.font = UIFont(name: "Montserrat-Medium", size: 12)
+        label.textColor = UIColor(red: 0.488, green: 0.488, blue: 0.488, alpha: 1)
+        label.textAlignment = .justified
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    lazy var statisticsView: StatisticsView = {
+        let view = StatisticsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -185,6 +198,9 @@ final class DetailViewController: BaseViewController {
         
         contentView.addSubview(colorView)
         contentView.addSubview(mainImageView)
+        contentView.addSubview(infoView)
+        contentView.addSubview(infoLabel)
+        contentView.addSubview(statisticsView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -209,6 +225,19 @@ final class DetailViewController: BaseViewController {
             colorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             colorView.heightAnchor.constraint(equalToConstant: 158),
+            
+            infoView.topAnchor.constraint(equalTo: colorView.bottomAnchor, constant: 10),
+            infoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            infoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            
+            infoLabel.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 32),
+            infoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            infoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            
+            statisticsView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 32),
+            statisticsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            statisticsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -48),
+            statisticsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
         ])
         
         let contentViewHeigthConstraint = contentView.heightAnchor.constraint(
