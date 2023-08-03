@@ -7,6 +7,13 @@
 
 import UIKit
 
+
+extension UINavigationBar {
+    open override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 151)
+    }
+}
+
 extension UIView {
     func cornerRadius(with corners: CACornerMask, cornerRadii: CGFloat) {
         self.layer.cornerRadius = cornerRadii

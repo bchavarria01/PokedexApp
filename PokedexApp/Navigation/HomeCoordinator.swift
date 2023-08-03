@@ -17,7 +17,7 @@ final class HomeCoordinator: Coordinator {
     
     func start() {
         let controller = HomeViewController()
-//        controller.delegate = self
+        controller.delegate = self
         presenter.pushViewController(controller, animated: true)
     }
     
@@ -28,3 +28,16 @@ final class HomeCoordinator: Coordinator {
     }
 }
 
+extension HomeCoordinator: HomeViewControllerDelegate {
+    func homeViewControllerDidSelectOnePokemon(with pokemonObject: PokemonResponse) {
+        let controller = DetailViewController()
+        controller.delegate = self
+        presenter.pushViewController(controller, animated: true)
+    }
+}
+
+extension HomeCoordinator: DetailViewControllerDelegate {
+    func detailViewControllerDelegateDidTapBack() {
+        presenter.popViewController(animated: true)
+    }
+}

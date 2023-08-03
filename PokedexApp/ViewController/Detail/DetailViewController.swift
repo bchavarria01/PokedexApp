@@ -23,6 +23,13 @@ final class DetailViewController: BaseViewController {
         return view
     }()
     
+    lazy var navBar: NavigationDetailBar = {
+        let navBar = NavigationDetailBar()
+        navBar.numberLabel.text = "#005"
+        navBar.backButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBackAction)))
+        return navBar
+    }()
+    
     lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,6 +69,8 @@ final class DetailViewController: BaseViewController {
     //    var pokemonImageUrl: String?
     //    let disposeBag = DisposeBag()
     
+    weak var delegate: DetailViewControllerDelegate?
+    
     // MARK: - DataSource
     
     private lazy var collectionDataSource: PokemonDetailViewControllerCollectionDataSource = {
@@ -78,11 +87,21 @@ final class DetailViewController: BaseViewController {
         super.viewDidLoad()
         setupLayout()
         bindViewModel()
-        navigationItem.title = "Charizard"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.backward.fill"), style: .plain, target: nil, action: nil)
+        
+        navigationItem.title = ""
+        navBar.backButton.setTitle("Charizard", for: .normal)
+        
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 0.004, green: 0.259, blue: 0.416, alpha: 1)]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navBar.backButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navBar.numberLabel)
     }
     
     // MARK: - Helpers
+    
+    @objc func handleBackAction() {
+        delegate?.detailViewControllerDelegateDidTapBack()
+    }
     
     private func bindViewModel() {
         //        showLoading(L10n.getPokemonDetail)

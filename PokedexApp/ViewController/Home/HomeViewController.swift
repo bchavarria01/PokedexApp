@@ -19,7 +19,6 @@ final class HomeViewController: BaseViewController {
     
     lazy var navigationView: NavigationHomeBar = {
         let view = NavigationHomeBar()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -86,10 +85,13 @@ final class HomeViewController: BaseViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isUserInteractionEnabled = true
         return collectionView
     }()
     
     // MARK: - Attributes
+    
+    weak var delegate: HomeViewControllerDelegate?
     
     // MARK: - DataSource
     
@@ -100,7 +102,9 @@ final class HomeViewController: BaseViewController {
     // MARK: - Delegate
     
     private lazy var collectionDelegate: PokemonDetailViewControllerCollectionDelegate = {
-        return PokemonDetailViewControllerCollectionDelegate()
+        let delegete = PokemonDetailViewControllerCollectionDelegate()
+        delegete.delegate = self.delegate
+        return delegete
     }()
     
     // MARK: - LifeCycle
@@ -110,29 +114,20 @@ final class HomeViewController: BaseViewController {
         setupLayout()
         setupActions()
         setupCollectionView()
-        hideKeyboardGesture()
-        setupKeyboardHandling()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        self.additionalSafeAreaInsets.top = 20
+        
+        let height: CGFloat = 150 //whatever height you want to add to the existing height
+        let bounds = self.navigationController!.navigationBar.bounds
+        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+        
     }
     
     // MARK: - Helpers
-    
-    private func setupKeyboardHandling() {
-        subscribeForKeyboardChange(
-            self,
-            selector: #selector(keyboardWillChange(_:))
-        )
-    }
-    
-    @objc private func keyboardWillChange(_ notification: Notification) {
-        guard let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
-            else { return }
-        
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            pokemonsCollectionView.contentInset = .zero
-        } else if notification.name == UIResponder.keyboardWillShowNotification {
-            pokemonsCollectionView.contentInset.bottom = frame.height
-        }
-    }
     
     private func setupActions() {
         
@@ -140,8 +135,10 @@ final class HomeViewController: BaseViewController {
     
     private func setupCollectionView() {
         let items = [PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: "")]
+        
         collectionDelegate.items = items
         collectionDataSource.items = items
+        
         pokemonsCollectionView.register(cellType: PokemonsCollectionViewCell.self)
         pokemonsCollectionView.dataSource = collectionDataSource
         pokemonsCollectionView.delegate = collectionDelegate
@@ -149,7 +146,11 @@ final class HomeViewController: BaseViewController {
     }
     
     private func setupLayout() {
-        self.navigationItem.titleView = navigationView
+        let logoView = navigationView.logoImage
+        logoView.translatesAutoresizingMaskIntoConstraints = false
+        logoView.heightAnchor.constraint(equalToConstant: 46).isActive = true
+        logoView.widthAnchor.constraint(equalToConstant: 46).isActive = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoView)
         view.addSubview(contentView)
         circleView.addSubview(searchIcon)
     
