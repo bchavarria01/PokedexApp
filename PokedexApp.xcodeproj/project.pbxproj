@@ -21,7 +21,6 @@
 		0D1B3D032A7AAF9700152ADE /* HomeViewControllerCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B3D022A7AAF9700152ADE /* HomeViewControllerCollectionDelegate.swift */; };
 		0D1B3D0D2A7AAFD800152ADE /* PokemonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B3D072A7AAFD800152ADE /* PokemonResponse.swift */; };
 		0D1B3D0E2A7AAFD800152ADE /* PokemonsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B3D082A7AAFD800152ADE /* PokemonsResponseModel.swift */; };
-		0D1B3D132A7AB02E00152ADE /* HomeViewControllerCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B3D122A7AB02E00152ADE /* HomeViewControllerCollectionDataSource.swift */; };
 		0D1B3D192A7AB0C400152ADE /* PokemonsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D1B3D182A7AB0C400152ADE /* PokemonsCollectionViewCell.xib */; };
 		0D1B3D1B2A7AB12A00152ADE /* PokemonsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B3D1A2A7AB12A00152ADE /* PokemonsCollectionViewCell.swift */; };
 		0D1B3D1D2A7AC5E000152ADE /* UIViewController+keyboardHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B3D1C2A7AC5E000152ADE /* UIViewController+keyboardHandling.swift */; };
@@ -85,7 +84,6 @@
 		0D1B3D022A7AAF9700152ADE /* HomeViewControllerCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerCollectionDelegate.swift; sourceTree = "<group>"; };
 		0D1B3D072A7AAFD800152ADE /* PokemonResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonResponse.swift; sourceTree = "<group>"; };
 		0D1B3D082A7AAFD800152ADE /* PokemonsResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonsResponseModel.swift; sourceTree = "<group>"; };
-		0D1B3D122A7AB02E00152ADE /* HomeViewControllerCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerCollectionDataSource.swift; sourceTree = "<group>"; };
 		0D1B3D182A7AB0C400152ADE /* PokemonsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokemonsCollectionViewCell.xib; sourceTree = "<group>"; };
 		0D1B3D1A2A7AB12A00152ADE /* PokemonsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0D1B3D1C2A7AC5E000152ADE /* UIViewController+keyboardHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+keyboardHandling.swift"; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 				0D1B3CF82A7A071D00152ADE /* HomeViewController.swift */,
 				0D82403F2A7AEAC2003A18A8 /* HomeViewControllerDelegate.swift */,
 				0D1B3D022A7AAF9700152ADE /* HomeViewControllerCollectionDelegate.swift */,
-				0D1B3D122A7AB02E00152ADE /* HomeViewControllerCollectionDataSource.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -547,7 +544,6 @@
 				0D1B3D222A7AE11F00152ADE /* DetailViewController.swift in Sources */,
 				0D1B3D0E2A7AAFD800152ADE /* PokemonsResponseModel.swift in Sources */,
 				0D8240482A7B643C003A18A8 /* ProgressBarView.swift in Sources */,
-				0D1B3D132A7AB02E00152ADE /* HomeViewControllerCollectionDataSource.swift in Sources */,
 				0D8240662A7C0473003A18A8 /* HomeViewModel.swift in Sources */,
 				0D1B3CF32A7A06A600152ADE /* HomeCoordinator.swift in Sources */,
 				0D82406A2A7C176E003A18A8 /* DetailViewModel.swift in Sources */,

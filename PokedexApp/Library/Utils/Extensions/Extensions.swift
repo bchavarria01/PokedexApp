@@ -7,13 +7,6 @@
 
 import UIKit
 
-
-extension UINavigationBar {
-    open override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 151)
-    }
-}
-
 extension UIView {
     func cornerRadius(with corners: CACornerMask, cornerRadii: CGFloat) {
         self.layer.cornerRadius = cornerRadii
@@ -156,20 +149,6 @@ extension String {
 }
 
 extension UIImageView {
-    func rotateImageInfinite() {
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotationAnimation.fromValue = -Double.pi * 2
-        rotationAnimation.toValue = 0.0
-        rotationAnimation.duration = 10
-        rotationAnimation.repeatCount = .infinity
-        rotationAnimation.speed = 10
-        self.layer.add(rotationAnimation, forKey: "rotateInfinite")
-    }
-    
-    func stopRotation() {
-        self.layer.removeAnimation(forKey: "rotateInfinite")
-    }
-    
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url) {
