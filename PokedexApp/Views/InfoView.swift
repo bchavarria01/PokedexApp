@@ -38,7 +38,7 @@ class InfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "90,5 kg"
         label.textColor = UIColor(red: 0.004, green: 0.259, blue: 0.416, alpha: 1)
-        label.font = UIFont(name: "Montserrat-Bold", size: 14)
+        label.font = FontFamily.Montserrat.bold.font(size: 14)
         return label
     }()
     
@@ -47,7 +47,7 @@ class InfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Peso"
         label.textColor = UIColor(red: 0.172, green: 0.521, blue: 0.736, alpha: 1)
-        label.font = UIFont(name: "Montserrat-Regular", size: 10)
+        label.font = FontFamily.Montserrat.regular.font(size: 10)
         return label
     }()
     
@@ -63,7 +63,7 @@ class InfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "1.7 m"
         label.textColor = UIColor(red: 0.004, green: 0.259, blue: 0.416, alpha: 1)
-        label.font = UIFont(name: "Montserrat-Bold", size: 14)
+        label.font = FontFamily.Montserrat.bold.font(size: 14)
         return label
     }()
     
@@ -72,7 +72,7 @@ class InfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Altura"
         label.textColor = UIColor(red: 0.172, green: 0.521, blue: 0.736, alpha: 1)
-        label.font = UIFont(name: "Montserrat-Regular", size: 10)
+        label.font = FontFamily.Montserrat.regular.font(size: 10)
         return label
     }()
     
@@ -125,8 +125,9 @@ class InfoView: UIView {
             
             weightLabel.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 10),
             weightLabel.leadingAnchor.constraint(equalTo: weightImageView.trailingAnchor, constant: 16),
+            weightLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            weightLabelTitle.topAnchor.constraint(equalTo: weightLabel.bottomAnchor),
+            weightLabelTitle.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 1),
             weightLabelTitle.leadingAnchor.constraint(equalTo: weightImageView.trailingAnchor, constant: 16),
             weightLabelTitle.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -10),
             
@@ -144,8 +145,9 @@ class InfoView: UIView {
             
             heightLabel.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 10),
             heightLabel.leadingAnchor.constraint(equalTo: rulerImageView.trailingAnchor, constant: 16),
+            heightLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            heightLabelTitle.topAnchor.constraint(equalTo: heightLabel.bottomAnchor),
+            heightLabelTitle.topAnchor.constraint(equalTo: heightLabel.bottomAnchor, constant: 1),
             heightLabelTitle.leadingAnchor.constraint(equalTo: rulerImageView.trailingAnchor, constant: 16),
             heightLabelTitle.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -10),
         ])

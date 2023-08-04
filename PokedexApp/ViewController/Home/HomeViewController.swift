@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class HomeViewController: BaseViewController {
     
@@ -26,7 +27,7 @@ final class HomeViewController: BaseViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red: 0, green: 0.14, blue: 0.23, alpha: 1)
-        label.font = UIFont(name: "Montserrat-Medium", size: 20)
+        label.font = FontFamily.Montserrat.medium.font(size: 20)
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.31
         
@@ -92,6 +93,10 @@ final class HomeViewController: BaseViewController {
     // MARK: - Attributes
     
     weak var delegate: HomeViewControllerDelegate?
+    var viewModel: HomeViewModel!
+    var disposeBag = DisposeBag()
+    var items: [PokemonResponse] = []
+    var nextUrlValue: URL?
     
     // MARK: - DataSource
     
@@ -112,21 +117,39 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        bindViewModel()
         setupCollectionView()
     }
     
     // MARK: - Helpers
     
+    private func bindViewModel() {
+        showLoading("\(L10n.loadingTitle)")
+        viewModel.getPokemons(limit: "200")
+            .subscribe(
+                onSuccess: { [weak self] data in
+                    guard let self = self else { return }
+                    self.nextUrlValue = URL(string: data.next ?? "")
+                    self.items = data.results ?? []
+                    self.collectionDataSource.items = data.results ?? []
+                    self.collectionDelegate.items = data.results ?? []
+                    self.pokemonsCollectionView.reloadData()
+                    self.dismiss(animated: true)
+                }, onFailure: { [weak self] error in
+                    guard let self = self else { return }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        self.dismiss(animated: true, completion: {
+                            self.showActionMessage(title: L10n.error, message: error.localizedDescription)
+                        })
+                    })
+            }).disposed(by: disposeBag)
+    }
+    
     private func setupCollectionView() {
-        let items = [PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: ""), PokemonResponse(name: "", url: "")]
-        
-        collectionDelegate.items = items
-        collectionDataSource.items = items
-        
-        pokemonsCollectionView.register(cellType: PokemonsCollectionViewCell.self)
         pokemonsCollectionView.dataSource = collectionDataSource
         pokemonsCollectionView.delegate = collectionDelegate
-        pokemonsCollectionView.reloadData()
+        
+        pokemonsCollectionView.register(cellType: PokemonsCollectionViewCell.self)
     }
     
     private func setupLayout() {

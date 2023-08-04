@@ -35,7 +35,11 @@ class BaseViewController: UIViewController {
         loadingIndicator.style = UIActivityIndicatorView.Style.medium
         loadingIndicator.startAnimating();
         
+        var imageView = UIImageView(frame: CGRectMake(220, 10, 40, 40))
+        imageView.image = R.Base.icPokeball.image
+        
         alert.view.addSubview(loadingIndicator)
+        alert.view.addSubview(imageView)
         present(alert, animated: true, completion: nil)
     }
     

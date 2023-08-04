@@ -15,7 +15,7 @@ class StatisticsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red: 0.004, green: 0.259, blue: 0.416, alpha: 1)
-        label.font =  UIFont(name: "Montserrat-Bold", size: 20)
+        label.font = FontFamily.Montserrat.bold.font(size: 20)
         label.text = "Estadísticas"
         return label
     }()
@@ -33,6 +33,7 @@ class StatisticsView: UIView {
     lazy var hpProgressView: ProgressBarView = {
         let view = ProgressBarView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.nameLabel.text = "HP"
         return view
     }()
     

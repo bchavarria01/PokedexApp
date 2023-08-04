@@ -24,16 +24,13 @@ class ProgressBarView: UIView {
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "HP"
         return label
     }()
     
-    lazy var progressBar: UIProgressView = {
+     lazy var progressBar: UIProgressView = {
         let view = UIProgressView(progressViewStyle: .bar)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setProgress(0.5, animated: true)
-        view.trackTintColor = UIColor(named: "testYellow2")
-        view.tintColor = UIColor(named: "testYellow")
         view.cornerRadius(
             with: [
                 .layerMaxXMaxYCorner,
@@ -49,9 +46,13 @@ class ProgressBarView: UIView {
     lazy var valueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "050"
         return label
     }()
+    
+    // MARK: - Atributes
+    
+    var mainColor: UIColor?
+    var secondColor: UIColor?
     
     // MARK: - LifeCycle
     
@@ -68,6 +69,9 @@ class ProgressBarView: UIView {
     
     private func setUpView() {
         
+        progressBar.tintColor = mainColor
+        progressBar.trackTintColor = secondColor
+        
         progressStackView.addArrangedSubview(nameLabel)
         progressStackView.addArrangedSubview(progressBar)
         progressStackView.addArrangedSubview(valueLabel)
@@ -81,8 +85,6 @@ class ProgressBarView: UIView {
             progressStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             progressStackView.heightAnchor.constraint(equalToConstant: 20),
-            
-            progressBar.heightAnchor.constraint(equalToConstant: 14),
             
             nameLabel.widthAnchor.constraint(equalToConstant: 121)
         ])

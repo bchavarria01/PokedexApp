@@ -22,8 +22,8 @@ class NavigationHomeBar: UIView {
             attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle]), for: .normal
         )
         button.isUserInteractionEnabled = false
-        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 24)
-        button.tintColor = UIColor(red: 0, green: 0.373, blue: 1, alpha: 1)
+        button.titleLabel?.font = FontFamily.Montserrat.bold.font(size: 24)
+        button.titleLabel?.textColor = UIColor(red: 0, green: 0.373, blue: 1, alpha: 1)
         
         let image = UIImage(named: "ic_pokemon_logo")
         button.setImage(image, for: .normal)
@@ -51,7 +51,7 @@ class NavigationHomeBar: UIView {
             logoImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             logoImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             
-            logoImage.widthAnchor.constraint(equalToConstant: 120),
+            logoImage.widthAnchor.constraint(equalToConstant: 172),
             logoImage.heightAnchor.constraint(equalToConstant: 150),
         ])
     }

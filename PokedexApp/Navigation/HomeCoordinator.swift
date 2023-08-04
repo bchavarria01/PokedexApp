@@ -18,6 +18,7 @@ final class HomeCoordinator: Coordinator {
     func start() {
         let controller = HomeViewController()
         controller.delegate = self
+        controller.viewModel = HomeViewModel(pokemonService: PokemonServices())
         presenter.pushViewController(controller, animated: true)
     }
     
@@ -32,6 +33,8 @@ extension HomeCoordinator: HomeViewControllerDelegate {
     func homeViewControllerDidSelectOnePokemon(with pokemonObject: PokemonResponse) {
         let controller = DetailViewController()
         controller.delegate = self
+        controller.selectedPokemon = pokemonObject
+        controller.viewModel = DetailViewModel(pokemonService: PokemonServices())
         presenter.pushViewController(controller, animated: true)
     }
 }
