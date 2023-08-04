@@ -10,6 +10,7 @@ target 'PokedexApp' do
   pod 'Nuke'
   pod 'Reusable'
   pod 'RxSwift'
+  pod 'RxCocoa'
   pod 'Moya/RxSwift'
   pod 'SwiftGen'
   pod 'Presentr'

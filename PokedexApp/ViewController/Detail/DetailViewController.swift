@@ -136,12 +136,12 @@ final class DetailViewController: BaseViewController {
                                 DispatchQueue.main.async {
                                     let imageUrl = URL(string: self.selectedPokemon?.url?.getImageUrl() ?? "")!
                                     Nuke.loadImage(with: imageUrl, options: K.Nuke.options, into: self.mainImageView)
-                                    self.infoView.weightLabel.text = "\(data.weight ?? 0) Kg"
-                                    self.infoView.heightLabel.text = "\((data.height ?? 0 / 10)) m"
+                                    self.infoView.weightLabel.text = "\((Float(data.weight ?? 0) / 10)) Kg"
+                                    self.infoView.heightLabel.text = "\((Float(data.height ?? 0) / 10)) m"
                                     self.colorView.backgroundColor = speciesResult.color?.name?.getColorByPokemonColor()
                                     self.infoLabel.text = speciesResult.flavorTextEntries?.first(where: { textEntry in
                                         textEntry.language?.name == "es" && textEntry.version?.name == "omega-ruby"
-                                    })?.flavorText?.replacingOccurrences(of: "\n", with: "")
+                                    })?.flavorText?.replacingOccurrences(of: "\n", with: " ")
                                     
                                     self.typeView.secondType.isHidden = data.types?.count ?? 0 < 2
                                     

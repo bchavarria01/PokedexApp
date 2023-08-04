@@ -46,4 +46,13 @@ final class PokemonServices {
             .asSingle()
     }
     
+    func getNextPokemon(with url: URL) -> Single<PokemonsResponseModel> {
+        return provider.rx
+            .request(.getNextPokemons(url: url))
+            .filterSuccessfulStatusCodes()
+            .map(PokemonsResponseModel.self)
+            .asObservable()
+            .asSingle()
+    }
+    
 }

@@ -7,86 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B81B35A6-5A9C-4E33-B655-9CEE52D807C9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PokedexApp/ViewController/Home/HomeViewControllerCollectionDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "collectionView(_:layout:sizeForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "103CBF05-CDE1-4466-B735-B7A391D689F3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PokedexApp/ViewController/Home/HomeViewControllerCollectionDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "103CBF05-CDE1-4466-B735-B7A391D689F3 - f3b134e10b30c7e0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PokedexApp.PokemonDetailViewControllerCollectionDelegate.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PokedexApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/byronchavarria/Documents/OtherProjects/PokedexApp/PokedexApp/ViewController/Home/HomeViewControllerCollectionDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "132">
-               </Location>
-               <Location
-                  uuid = "103CBF05-CDE1-4466-B735-B7A391D689F3 - f3b134e10b30c7e0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PokedexApp.PokemonDetailViewControllerCollectionDelegate.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PokedexApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/byronchavarria/Documents/OtherProjects/PokedexApp/PokedexApp/ViewController/Home/HomeViewControllerCollectionDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "168">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ED013F87-0C7C-44A3-B074-7DE659A504E7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PokedexApp/ViewController/Home/HomeViewControllerCollectionDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "9214DDF2-4542-4484-B3E3-B5F9A6FCB174"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -225,6 +145,21 @@
                   endingLineNumber = "177"
                   offsetFromSymbolStart = "776">
                </Location>
+               <Location
+                  uuid = "E3626001-A1A9-49CA-A097-B339F07B2F73 - 3e50cebe4b7e7be4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIView) -&gt; () in closure #2 (__C.UIView) -&gt; () in closure #1 @Swift.MainActor () -&gt; () in closure #1 (PokedexApp.PokemonAdditionalDetailResponse) -&gt; () in closure #1 (PokedexApp.PokemonDetailResponse) -&gt; () in PokedexApp.DetailViewController.bindViewModel() -&gt; ()"
+                  moduleName = "PokedexApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/byronchavarria/Documents/OtherProjects/PokedexApp/PokedexApp/ViewController/Detail/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "178"
+                  endingLineNumber = "178"
+                  offsetFromSymbolStart = "776">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -241,6 +176,38 @@
             startingLineNumber = "177"
             endingLineNumber = "177"
             landmarkName = "bindViewModel()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E0127A6-3E53-4081-A5F2-1A0669273CAD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexApp/ViewController/Home/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "init(pokemonService:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A676A363-2604-401B-9B87-53DC86FAF054"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexApp/ViewController/Home/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "bindCollectionView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

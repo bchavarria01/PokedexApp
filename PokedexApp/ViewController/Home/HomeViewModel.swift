@@ -6,12 +6,15 @@
 //
 
 import RxSwift
+import RxCocoa
 
 final class HomeViewModel {
     // MARK: - Services
     
     let pokemonService: PokemonServices
     let disposeBag = DisposeBag()
+    
+    let items = BehaviorRelay<[PokemonResponse]?>(value: nil)
     
     // MARK: - LifeCycle
     
@@ -25,4 +28,14 @@ final class HomeViewModel {
             .map { $0 }
             .asSingle()
     }
+    
+    func getNextPokemons(nextPokemonUrl: String) -> Single<PokemonsResponseModel> {
+        let url = URL(string: nextPokemonUrl)!
+        return pokemonService.getNextPokemon(with: url)
+            .asObservable()
+            .map { $0 }
+            .asSingle()
+    }
+    
+    
 }

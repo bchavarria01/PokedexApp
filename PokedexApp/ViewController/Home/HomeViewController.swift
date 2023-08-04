@@ -7,8 +7,10 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
+import Nuke
 
-final class HomeViewController: BaseViewController {
+final class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Components
     
@@ -20,6 +22,12 @@ final class HomeViewController: BaseViewController {
     
     lazy var navigationView: NavigationHomeBar = {
         let view = NavigationHomeBar()
+        return view
+    }()
+    
+    lazy var headerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -43,37 +51,10 @@ final class HomeViewController: BaseViewController {
         return label
     }()
     
-    lazy var searchField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.isUserInteractionEnabled = true
-        textField.layer.borderColor = UIColor(red: 0.67, green: 0.67, blue: 0.67, alpha: 1).cgColor
-        textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 20
-        textField.leftViewMode = .always
-        textField.leftView = UIView(frame: CGRect(x:0,y:0,width:15,height:0))
-        textField.placeholder = "Buscar"
-        textField.isEnabled = true
-
-        return textField
-    }()
-    
-    lazy var circleView: UIView = {
-        let circleView = UIView()
-        circleView.translatesAutoresizingMaskIntoConstraints = false
-        circleView.layer.backgroundColor = UIColor(red: 1, green: 0.776, blue: 0, alpha: 1).cgColor
-        circleView.layer.cornerRadius = 15
-        
-        return circleView
-    }()
-    
-    lazy var searchIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "ic_search")
-        imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        
-        return imageView
+    lazy var searchField: SearchField = {
+        let view = SearchField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     lazy var pokemonsCollectionView: UICollectionView = {
@@ -96,7 +77,7 @@ final class HomeViewController: BaseViewController {
     var viewModel: HomeViewModel!
     var disposeBag = DisposeBag()
     var items: [PokemonResponse] = []
-    var nextUrlValue: URL?
+    var nextUrlValue: String?
     
     // MARK: - DataSource
     
@@ -108,7 +89,6 @@ final class HomeViewController: BaseViewController {
     
     private lazy var collectionDelegate: PokemonDetailViewControllerCollectionDelegate = {
         let delegete = PokemonDetailViewControllerCollectionDelegate()
-        delegete.delegate = self.delegate
         return delegete
     }()
     
@@ -117,24 +97,33 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupActions()
         bindViewModel()
         setupCollectionView()
     }
     
     // MARK: - Helpers
     
+    private func setupActions() {
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleKeyboardDismiss)))
+    }
+    
+    @objc func handleKeyboardDismiss() {
+        self.view.endEditing(true)
+    }
+    
     private func bindViewModel() {
         showLoading("\(L10n.loadingTitle)")
-        viewModel.getPokemons(limit: "200")
+        viewModel.getPokemons(limit: "151")
             .subscribe(
                 onSuccess: { [weak self] data in
                     guard let self = self else { return }
-                    self.nextUrlValue = URL(string: data.next ?? "")
-                    self.items = data.results ?? []
-                    self.collectionDataSource.items = data.results ?? []
-                    self.collectionDelegate.items = data.results ?? []
-                    self.pokemonsCollectionView.reloadData()
-                    self.dismiss(animated: true)
+                    self.dismiss(animated: true) {
+                        let result: [PokemonResponse]? = data.results
+                        self.viewModel.items.accept(result)
+                        self.bindCollectionView()
+                        self.nextUrlValue = data.next
+                    }
                 }, onFailure: { [weak self] error in
                     guard let self = self else { return }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -145,10 +134,39 @@ final class HomeViewController: BaseViewController {
             }).disposed(by: disposeBag)
     }
     
-    private func setupCollectionView() {
-        pokemonsCollectionView.dataSource = collectionDataSource
-        pokemonsCollectionView.delegate = collectionDelegate
+    private func bindCollectionView() {
+        let _ = searchField.searchField.rx.text.orEmpty
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .map { query in
+                self.viewModel.items.value?.filter({ pokemonResponse in
+                    query.isEmpty ||
+                    (pokemonResponse.name?.lowercased().contains(query.lowercased())) ?? true ||
+                    (pokemonResponse.url?.getPokemonNumber().lowercased().contains(query.lowercased())) ?? true
+                }) ?? []
+            }
+            .bind(to: pokemonsCollectionView
+                .rx
+                .items(cellIdentifier: "PokemonsCollectionViewCell", cellType: PokemonsCollectionViewCell.self)) { (_, tableViewItem, cell) in
+                    cell.cornerRadius(with: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], cornerRadii: 10)
+                    let item = tableViewItem
+                    let urlReplaced = item.url?.getImageUrl()
+                    let url = URL(string: urlReplaced!)
+                    cell.pokemonName.text = item.name?.capitalizingFirstLetter() ?? ""
+                    Nuke.loadImage(with: url, options: K.Nuke.options, into: cell.pokemonImage)
+                    cell.pokemonNumber.text = "#\(item.url?.getPokemonNumber() ?? "")"
+                }
+                .disposed(by: disposeBag)
         
+        pokemonsCollectionView.rx
+            .modelSelected(PokemonResponse.self)
+            .subscribe(onNext: { pokemonObject in
+                self.delegate?.homeViewControllerDidSelectOnePokemon(with: pokemonObject)
+            }).disposed(by: disposeBag)
+        
+        pokemonsCollectionView.rx.setDelegate(collectionDelegate).disposed(by: disposeBag)
+    }
+    
+    private func setupCollectionView() {
         pokemonsCollectionView.register(cellType: PokemonsCollectionViewCell.self)
     }
     
@@ -156,11 +174,11 @@ final class HomeViewController: BaseViewController {
         let logoView = navigationView.logoImage
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoView)
         view.addSubview(contentView)
-        circleView.addSubview(searchIcon)
-    
-        contentView.addSubview(welcomeLabel)
-        contentView.addSubview(searchField)
-        contentView.addSubview(circleView)
+        
+        headerView.addSubview(welcomeLabel)
+        headerView.addSubview(searchField)
+
+        contentView.addSubview(headerView)
         contentView.addSubview(pokemonsCollectionView)
         
         NSLayoutConstraint.activate([
@@ -169,23 +187,20 @@ final class HomeViewController: BaseViewController {
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            welcomeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-            welcomeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            welcomeLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 30),
+            welcomeLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 24),
             
             searchField.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 12),
-            searchField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            searchField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            searchField.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 24),
+            searchField.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -24),
+            searchField.heightAnchor.constraint(equalToConstant: 36),
+            searchField.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
             
-            searchIcon.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
-            searchIcon.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
-            
-            circleView.centerYAnchor.constraint(equalTo: searchField.centerYAnchor),
-            circleView.trailingAnchor.constraint(equalTo: searchField.trailingAnchor, constant: -5),
-            circleView.bottomAnchor.constraint(equalTo: searchField.bottomAnchor, constant: -5),
-            circleView.widthAnchor.constraint(equalToConstant: 30),
-            circleView.heightAnchor.constraint(equalToConstant: 30),
-            
-            pokemonsCollectionView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 20),
+            pokemonsCollectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 20),
             pokemonsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             pokemonsCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -90),
             pokemonsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
@@ -193,10 +208,4 @@ final class HomeViewController: BaseViewController {
         ])
         
     }
-    
-    @objc func singIn() {
-        
-    }
-    
 }
-
