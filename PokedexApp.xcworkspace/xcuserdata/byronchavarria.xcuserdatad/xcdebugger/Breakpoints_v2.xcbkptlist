@@ -30,8 +30,8 @@
             filePath = "PokedexApp/ViewController/Detail/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "bindViewModel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "PokedexApp/ViewController/Detail/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "bindViewModel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "PokedexApp/ViewController/Detail/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "bindViewModel()"
             landmarkType = "7">
             <Locations>
@@ -110,8 +110,8 @@
             filePath = "PokedexApp/ViewController/Detail/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "bindViewModel()"
             landmarkType = "7">
             <Locations>
@@ -173,8 +173,8 @@
             filePath = "PokedexApp/ViewController/Detail/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "bindViewModel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -205,8 +205,8 @@
             filePath = "PokedexApp/ViewController/Home/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "bindCollectionView()"
             landmarkType = "7">
          </BreakpointContent>

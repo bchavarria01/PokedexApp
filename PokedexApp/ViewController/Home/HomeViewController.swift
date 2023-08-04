@@ -79,12 +79,6 @@ final class HomeViewController: BaseViewController, UICollectionViewDelegate, UI
     var items: [PokemonResponse] = []
     var nextUrlValue: String?
     
-    // MARK: - DataSource
-    
-    private lazy var collectionDataSource: PokemonDetailViewControllerCollectionDataSource = {
-        return PokemonDetailViewControllerCollectionDataSource()
-    }()
-    
     // MARK: - Delegate
     
     private lazy var collectionDelegate: PokemonDetailViewControllerCollectionDelegate = {

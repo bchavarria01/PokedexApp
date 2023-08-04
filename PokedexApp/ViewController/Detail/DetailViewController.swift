@@ -84,21 +84,10 @@ final class DetailViewController: BaseViewController {
     // MARK: - Attributes
     
     var selectedPokemon: PokemonResponse?
-    
-        var viewModel: DetailViewModel!
-        let disposeBag = DisposeBag()
+    var viewModel: DetailViewModel!
+    let disposeBag = DisposeBag()
     
     weak var delegate: DetailViewControllerDelegate?
-    
-    // MARK: - DataSource
-    
-    private lazy var collectionDataSource: PokemonDetailViewControllerCollectionDataSource = {
-        return PokemonDetailViewControllerCollectionDataSource()
-    }()
-    
-    private lazy var collectionDelegate: PokemonDetailViewControllerCollectionDelegate = {
-        return PokemonDetailViewControllerCollectionDelegate()
-    }()
     
     // MARK: - LifeCycle
     
