@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  PokedexApp
+
+  Created by Byron Chavarría on 3/8/23.
+  
+*/
+
+"loadingTitle" = "Loading...";
+"error" = "Error";

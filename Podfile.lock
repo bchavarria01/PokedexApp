@@ -1,0 +1,57 @@
+PODS:
+  - Alamofire (5.7.1)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
+  - Nuke (10.7.1)
+  - Presentr (1.9)
+  - Reusable (4.1.2):
+    - Reusable/Storyboard (= 4.1.2)
+    - Reusable/View (= 4.1.2)
+  - Reusable/Storyboard (4.1.2)
+  - Reusable/View (4.1.2)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - SwiftGen (6.6.2)
+
+DEPENDENCIES:
+  - Moya/RxSwift
+  - Nuke
+  - Presentr
+  - Reusable
+  - RxCocoa
+  - RxSwift
+  - SwiftGen
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Moya
+    - Nuke
+    - Presentr
+    - Reusable
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SwiftGen
+
+SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
+  Reusable: 6bae6a5e8aa793c9c441db0213c863a64bce9136
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
+
+PODFILE CHECKSUM: 592d1f3d9e0b1187341b399aeb56af38c98c8643
+
+COCOAPODS: 1.12.1
