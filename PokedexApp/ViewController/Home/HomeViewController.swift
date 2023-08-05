@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Nuke
 
-final class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+final class HomeViewController: BaseViewController {
     
     // MARK: - Components
     
@@ -59,6 +59,8 @@ final class HomeViewController: BaseViewController, UICollectionViewDelegate, UI
     
     lazy var pokemonsCollectionView: UICollectionView = {
         let collectionLayout = UICollectionViewFlowLayout()
+        collectionLayout.minimumLineSpacing = 15
+        collectionLayout.minimumInteritemSpacing = 15
         collectionLayout.scrollDirection = .vertical
         let collectionView = UICollectionView(
             frame: .zero,
